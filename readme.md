@@ -1,3 +1,32 @@
+# 运行环境
+```commandline
+python 3.6.8
+```
+
+# 依赖库
+```commandline
+requests>=2.0.0
+lxml>=3.8.0
+simplejson>=3.16.0
+bs4>=0.0.1
+beautfulsoup4>=4.5.1
+```
+
+# 可能需要的依赖
+由于本人时间有限, 没空看代码哪些依赖是需要的
+列出可能需要的依赖库, 如果无法运行, 请安装以下依赖
+```commandline
+numpy=1.19.5
+pandas=0.23.3
+Pillow=8.4.0
+```
+
+# 如何安装
+```
+git clone https://github.com/ben46/tushare.git
+cd tushare
+python install_tushare.py install
+```
 # 修复接口
 
 #### 获取k先数据
