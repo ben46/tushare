@@ -87,6 +87,11 @@ def get_report_data(year, quarter):
             df['code'] = df['code'].map(lambda x:str(x).zfill(6))
         return df
 
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_stockstructure_data_by_code(code, retry_count=3, pause=5):
     for _ in range(retry_count):
         try:
@@ -137,6 +142,11 @@ def get_stockstructure_data_by_code(code, retry_count=3, pause=5):
             return df
     raise IOError(ct.NETWORK_URL_ERROR_MSG)
 
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_profit_predictdc(code, retry_count=3, pause=5):
     '''
     获取机构预测利润, 东方财富
@@ -194,7 +204,11 @@ def get_profit_predictdc(code, retry_count=3, pause=5):
             time.sleep(pause)
     raise IOError(ct.NETWORK_URL_ERROR_MSG)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_profit_predictths(code, retry_count=3, pause=5):
     '''
     获取机构预测利润,童虎顺
@@ -217,7 +231,11 @@ def get_profit_predictths(code, retry_count=3, pause=5):
             print(e)
             time.sleep(pause)
     return None
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_cashflow_data_by_code(code):
     try:
         _url = 'http://vip.stock.finance.sina.com.cn/corp/go.php/vFD_CashFlow/stockid/'+code + '/ctrl/all/displaytype/4.phtml'
@@ -238,7 +256,12 @@ def get_cashflow_data_by_code(code):
     except Exception as e:
         print(e)
 
-# http://money.finance.sina.com.cn/corp/go.php/vFD_ProfitStatement/stockid/600332/ctrl/part/displaytype/4.phtml
+"""
+http://money.finance.sina.com.cn/corp/go.php/vFD_ProfitStatement/stockid/600332/ctrl/part/displaytype/4.phtml
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_profitstat_data_by_code(code, retry_count=3, pause=5):
     for _ in range(retry_count):
         try:
@@ -262,7 +285,11 @@ def get_profitstat_data_by_code(code, retry_count=3, pause=5):
             time.sleep(pause)
     raise IOError(ct.NETWORK_URL_ERROR_MSG)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_report_data_by_code(code, retry_count=3, pause=5):
     for _ in range(retry_count):
         try:

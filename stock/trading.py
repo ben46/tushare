@@ -3,8 +3,11 @@
 交易数据接口 
 Created on 2014/07/31
 @author: Jimmy Liu
-@group : waditu
 @contact: jimmysoa@sina.cn
+------------------------
+modified at 2022-10-30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
 """
 from __future__ import division
 
@@ -26,6 +29,7 @@ try:
     from urllib.request import urlopen, Request
 except ImportError:
     from urllib2 import urlopen, Request
+import requests
 
 
 def _code_to_symbol(code):
@@ -564,7 +568,11 @@ def get_index():
     df['amount'] = df['amount'].astype(float)
     return df
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def _get_index_url(index, code, qt):
     if index:
         url = ct.HIST_INDEX_URL % (ct.P_TYPE['http'], ct.DOMAINS['vsf'],
@@ -574,7 +582,11 @@ def _get_index_url(index, code, qt):
                                 code, qt[0], qt[1])
     return url
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def _get_cwfx(url, key='czzb', retry_count=3, pause=5):
     for _ in range(retry_count):
         try:
@@ -602,7 +614,11 @@ def _get_cwfx(url, key='czzb', retry_count=3, pause=5):
             print(e)
             time.sleep(pause)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def _get_cbsheet(url, retry_count=3, pause=5):
     for _ in range(retry_count):
         try:
@@ -636,7 +652,11 @@ def _get_cbsheet(url, retry_count=3, pause=5):
             print(e)
             time.sleep(pause)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def __parse_sina_table(url, retry_count=1, pause=5, table_name='ProfitStatementNewTable0', update=False):
     for _ in range(retry_count):
         try:
@@ -694,7 +714,11 @@ def __parse_sina_table(url, retry_count=1, pause=5, table_name='ProfitStatementN
             print(sys._getframe().f_code.co_name, url)
             print(e)
             time.sleep(pause)
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def __convert_billion_dataframe(df):
     # 把亿万转换为数字,方便计算
     d = {'亿': 10 ** 8, '万': 10 ** 4}
@@ -722,7 +746,11 @@ def __convert_billion_dataframe(df):
     df = pd.DataFrame(data=arr1, columns=df.columns)
 
     return df
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def __parse_sina_table_us(url, retry_count=1, pause=5, table_name='ProfitStatementNewTable0'):
     for _ in range(retry_count):
         # try:
@@ -783,7 +811,11 @@ def __parse_sina_table_us(url, retry_count=1, pause=5, table_name='ProfitStateme
         #     print sys._getframe().f_code.co_name, url
         #     print e
         #     time.sleep(pause)
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_cbsheet(code, year, sina=True, update=False):
     '''
     资产负债表
@@ -795,7 +827,11 @@ def get_cbsheet(code, year, sina=True, update=False):
         return __parse_sina_table(url, table_name='BalanceSheetNewTable0', update=update)
     url = 'http://stock.finance.qq.com/corp1/cbsheet.php?zqdm=%s&type=%d' % (code, year)
     return _get_cbsheet(url)
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_cbsheet_us(code):
     '''
     资产负债表
@@ -803,7 +839,11 @@ def get_cbsheet_us(code):
     '''
     url = 'https://quotes.sina.com.cn/usstock/hq/balance.php?s=%s&t=annual' % (code)
     return __parse_sina_table_us(url, table_name='data_tbl os_tbl')
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_inst_us(code):
     '''
     资产负债表
@@ -811,7 +851,11 @@ def get_inst_us(code):
     '''
     url = 'https://quotes.sina.com.cn/usstock/hq/income.php?s=%s&t=annual' % (code)
     return __parse_sina_table_us(url, table_name='data_tbl os_tbl')
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_cashflow_us(code):
     '''
     资产负债表
@@ -819,7 +863,11 @@ def get_cashflow_us(code):
     '''
     url = 'https://quotes.sina.com.cn/usstock/hq/cash.php?s=%s&t=annual' % (code)
     return __parse_sina_table_us(url, table_name='data_tbl os_tbl')
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_aastock_profit_loss(code, period, is_update = False):
     url = 'http://www.aastocks.com/en/stocks/analysis/company-fundamental/profit-loss?symbol=%s&period=%d' \
                       % (code, period)
@@ -850,7 +898,11 @@ def get_aastock_profit_loss(code, period, is_update = False):
     except:
         return None, None
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_aastock_buyback(code, is_update=False):
     url = 'http://www.aastocks.com/en/stocks/analysis/company-fundamental/securities-buyback?symbol=%s' \
                       % (code)
@@ -876,7 +928,11 @@ def get_aastock_buyback(code, is_update=False):
     except:
         return None
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_aastock_balance_sheet(code, period):
     print('get_aastock_balance_sheet')
     url = 'http://www.aastocks.com/en/stocks/analysis/company-fundamental/balance-sheet?symbol=%s&period=%d' \
@@ -904,7 +960,11 @@ def get_aastock_balance_sheet(code, period):
     df2 = pd.read_html(sarr)[0]
     return df
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_aastock_cash_flow(code, period):
     url = 'http://www.aastocks.com/en/stocks/analysis/company-fundamental/cash-flow?symbol=%s&period=%d' \
                       % (code, period)
@@ -929,7 +989,11 @@ def get_aastock_cash_flow(code, period):
     # df2 = pd.read_html(sarr)[0]
     return df
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_wsj_hk_income_statement(code, cf_type='quarter', market='HK'):
     if market == 'in':
         url = 'https://quotes.wsj.com/in/xbom/%s/financials/%s/income-statement' % (code, cf_type)
@@ -956,6 +1020,11 @@ def get_wsj_hk_income_statement(code, cf_type='quarter', market='HK'):
     df.to_csv(__cache_file_path)
     return df
 
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_wsj_balance_sheet(code, cf_type='annual', market='hk'):
     if market == 'in':
         url = 'https://quotes.wsj.com/in/xbom/%s/financials/%s/balance-sheet' % (code, cf_type)
@@ -996,7 +1065,11 @@ def get_wsj_balance_sheet(code, cf_type='annual', market='hk'):
     return df, df1
 
 import sys
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_wsj_hk_free_cash_flow(code, cf_type='annual', market='hk'):
     if market == 'hk':
         url = 'https://quotes.wsj.com/HK/%s/financials/%s/cash-flow' % (code[1:], cf_type)
@@ -1039,7 +1112,11 @@ def get_wsj_hk_free_cash_flow(code, cf_type='annual', market='hk'):
 
     return df, df1, df2
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_wsj_hk_predict_pe(code):
     try:
         wsj_pe_url = 'https://quotes.wsj.com/HK/XHKG/%s/research-ratings' % code[1:]
@@ -1051,7 +1128,11 @@ def get_wsj_hk_predict_pe(code):
     except Exception as e:
         print(e)
         return 0
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_inst(code, year, sina=True, ttm=False):
     '''
     公司利润表
@@ -1072,7 +1153,11 @@ def get_inst(code, year, sina=True, ttm=False):
         url = 'http://stock.finance.qq.com/corp1/inst.php?zqdm=%s&type=%d' % (code, year)
         return _get_cbsheet(url)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_mfratio(code, year=2016):
     '''
        u'基本每股收益',                      u'稀释每股收益',   u'每股收益加权平均',   u'每股收益摊薄(扣除非经常性损益后)',
@@ -1090,7 +1175,11 @@ def get_mfratio(code, year=2016):
     url = 'http://stock.finance.qq.com/corp1/mfratio.php?zqdm=%s&type=%d' % (code, year)
     return _get_cbsheet(url)
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_cfst(code, year=2016, sina=True):
     '''
     现金流量
@@ -1102,17 +1191,31 @@ def get_cfst(code, year=2016, sina=True):
     url = 'http://stock.finance.qq.com/corp1/cfst.php?zqdm=%s&type=%d' % (code, year)
     return _get_cbsheet(url)
 
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_sina_caiwu_index(code, year):
     url = 'http://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/%s/ctrl/%d/displaytype/4.phtml' % (
         code, year)
     return __parse_sina_table(url, table_name='BalanceSheetNewTable0')
 
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_debtpaying(code, year=2016, years=0, index=False):
     symbol = ct.INDEX_SYMBOL[code] if index else _code_to_symbol(code)
     url = 'http://comdata.finance.gtimg.cn/data/czzb/%s/%d' % (symbol, year)
     return _get_cwfx(url, 'czzb')
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_profit(code, year=2016, years=0, index=False):
     '''
     u'bgrq', u'cbfylrl',
@@ -1130,7 +1233,11 @@ def get_profit(code, year=2016, years=0, index=False):
     url = 'http://comdata.finance.gtimg.cn/data/ylnl/%s/%d' % (symbol, year)
     return _get_cwfx(url, 'ylnl')
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_profit_yoy(code, year=2016):
     '''
     扣非净利润同比
@@ -1154,7 +1261,11 @@ def get_profit_yoy(code, year=2016):
                 print(e)
     return df_0
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_operation(code, year=2016):
     symbol = _code_to_symbol(code)
     url = 'http://comdata.finance.gtimg.cn/data/yynl/%s/%d' % (symbol, year)
@@ -1168,7 +1279,11 @@ def get_operation(code, year=2016):
                   ]
     return df
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_growth(code, year=2016, years=0, index=False):
     '''
     mgsy 每股收益增长率(%)	16.15	14.93	3.93	20.23
@@ -1184,7 +1299,11 @@ def get_growth(code, year=2016, years=0, index=False):
     url = 'http://comdata.finance.gtimg.cn/data/cznl/%s/%d' % (symbol, year)
     return _get_cwfx(url, 'cznl')
 
-
+"""
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_djcw(code, year=2016, years=0, index=False):
     symbol = ct.INDEX_SYMBOL[code] if index else _code_to_symbol(code)
     url = 'http://comdata.finance.gtimg.cn/data/djcw/%s/%d' % (symbol, year)
@@ -1199,7 +1318,6 @@ def _get_k_data_us(code, ktype='D', start=''):
         :param symbol:
         :return: D, W, M
         '''
-    import requests
     s = requests.session()
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -1263,12 +1381,16 @@ def _get_k_data_us(code, ktype='D', start=''):
         df = df[df['date'] >= start]
     return df
 
-
+"""
+股票市值
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_market_cap(code):
     '''
     marketCapital, totalShares
     '''
-    import requests
     s = requests.session()
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -1313,40 +1435,24 @@ def get_market_cap(code):
     return float(totalShares)  # * float(last_close)
 
 
+"""
+获取k线数据
+由于本人比较懒, 所以没有用start和end来截断dataframe
+这个接口可以访问美股,港股,A股(印度股,越南股,日股等等未测试,应该也能用)
+访问美股和港股需要翻墙,用的是wsj和aastock
+访问港股请输入五位数代码
+访问美股请输入英文代码
+访问A股请输入六位数代码
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_k_data(code=None, start='', end='',
                ktype='D', autype='qfq',
                index=False,
                retry_count=3,
                pause=0.001):
-    """
-    获取k线数据
-    ---------
-    Parameters:
-      code:string
-                  股票代码 e.g. 600848
-      start:string
-                  开始日期 format：YYYY-MM-DD 为空时取上市首日
-      end:string
-                  结束日期 format：YYYY-MM-DD 为空时取最近一个交易日
-      autype:string
-                  复权类型，qfq-前复权 hfq-后复权 None-不复权，默认为qfq
-      ktype：string
-                  数据类型，D=日k线 W=周 M=月 5=5分钟 15=15分钟 30=30分钟 60=60分钟，默认为D
-      retry_count : int, 默认 3
-                 如遇网络等问题重复执行的次数 
-      pause : int, 默认 0
-                重复请求数据过程中暂停的秒数，防止请求间隔时间太短出现的问题
-    return
-    -------
-      DataFrame
-          date 交易日期 (index)
-          open 开盘价
-          high  最高价
-          close 收盘价
-          low 最低价
-          volume 成交量
-          code 股票代码
-    """
+
     # print('tushare.trading.get_k_data', end)
     is_us = False
     if re.compile(u"[a-zA-Z]+").search(code, 0) is not None:
@@ -1411,7 +1517,12 @@ def get_k_data(code=None, start='', end='',
         return data[data.date >= start]
     return data
 
-
+"""
+获取前复权价格
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_k_data_qfq(code=None, ktype='5'):
     df_5 = get_k_data(code, ktype=ktype)
     first_value = None
@@ -1424,7 +1535,6 @@ def get_k_data_qfq(code=None, ktype='5'):
             need_calculate = True
             break
         first_value = row2['close']
-    print (need_calculate)
     if need_calculate:
         df_d = get_k_data(code, ktype='D')
         for idx in range(df_d.shape[0] - 2, 0, -1):
@@ -1441,7 +1551,12 @@ def get_k_data_qfq(code=None, ktype='5'):
                 break
     return df_5
 
-
+"""
+获取ETFk线数据
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def get_etf_data(code=None, start='', end='',
                  ktype='D', autype='qfq',
                  index=False,
@@ -1470,7 +1585,7 @@ def get_etf_data(code=None, start='', end='',
     return df
 
 
-import requests
+# 为了第二次访问的时候, 速度更快, 所以先建立session
 session = requests.session()
 def _get_k_data(url, dataflag='',
                 symbol='',
@@ -1558,7 +1673,12 @@ def _random(n=13):
     return str(randint(start, end))
 
 
-
+"""
+获取涨跌停价格
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def calculate_zhangdieting(close, max_zf):
     max_zf = max_zf + 1
     new_price = round(close * max_zf, 2)
@@ -1566,11 +1686,9 @@ def calculate_zhangdieting(close, max_zf):
         return abs(_price / close - max_zf)
 
     if _get_abs(new_price + 0.01) < _get_abs(new_price):
-        print('add 0.01')
         new_price = new_price + 0.01
 
     if _get_abs(new_price - 0.01) < _get_abs(new_price):
-        print('minuse 0.01')
         new_price = new_price - 0.01
     zhangting = new_price
 
@@ -1579,20 +1697,30 @@ def calculate_zhangdieting(close, max_zf):
 
     new_price = round(close * (2-max_zf), 2)
     if _get_abs_dt(new_price + 0.01) < _get_abs_dt(new_price):
-        print('add 0.01')
         new_price = new_price + 0.01
     if _get_abs_dt(new_price - 0.01) < _get_abs_dt(new_price):
-        print('minuse 0.01')
         new_price = new_price - 0.01
     dieting = new_price
     return (zhangting, dieting)
 
+"""
+获取涨跌停价格
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def calculate_zhangdieting_with_code(code, close):
     max_zf = 0.1
     if code.find('300') == 0 or code.find('301') == 0 or code.find('688') == 0:
         max_zf = 0.2
     return calculate_zhangdieting(close, max_zf)
 
+"""
+获取涨跌停价格
+Created on 2022/11/30
+@author: Charlie Zhou
+@contact: ben02060846@qq.com
+"""
 def getZhangDieTing(code):
     # df = get_k_data(code, start='2022-11-01')
     df = get_k_data(code)
