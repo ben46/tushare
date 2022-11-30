@@ -42,7 +42,7 @@ python install_tushare.py install
 get_k_data
 ```commandline
 获取k线数据
-由于本人比较懒, 所以没有用start和end来截断dataframe
+由于本人比较忙, 所以没有用start和end来截断dataframe
 这个接口可以访问美股,港股,A股(印度股,越南股,日股等等未测试,应该也能用)
 访问美股和港股需要翻墙,用的是wsj和aastock
 访问港股请输入五位数代码
