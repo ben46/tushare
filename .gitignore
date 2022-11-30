@@ -1,0 +1,4 @@
+*.pyc
+datayes
+.DS_Store
+/cache/
